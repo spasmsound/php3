@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+    php:
+        container_name: php
+        working_dir: /app
+        build:
+            context: .
+            dockerfile: core.Dockerfile
+        volumes:
+            - .:/app
+    nginx:
+        container_name: nginx
+        image: arm64v8/nginx:alpine
+        volumes:
+            - .:/app
+            - ./build/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./build/nginx/app.conf:/etc/nginx/conf.d/default.conf
+    postgres:
+        container_name: postgres
+        image: arm64v8/postgres
+        volumes:
+            -
